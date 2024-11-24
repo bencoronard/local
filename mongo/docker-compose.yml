@@ -1,0 +1,22 @@
+services:
+  mongo:
+    image: docker.io/library/mongo:noble
+    restart: unless-stopped
+    volumes:
+      - mongo_data:/data/db
+      - ./init:/docker-entrypoint-initdb.d:z,ro
+    networks:
+      - hbnet
+    ports:
+      - '27017:27017'
+    environment:
+      MONGO_INITDB_ROOT_USERNAME: admin
+      MONGO_INITDB_ROOT_PASSWORD: P@ssw0rd
+      MONGO_INITDB_DATABASE: mongo
+
+volumes:
+  mongo_data:
+
+networks:
+  hbnet:
+    external: true

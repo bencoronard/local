@@ -1,0 +1,21 @@
+services:
+  prometheus:
+    image: docker.io/prom/prometheus:latest
+    restart: unless-stopped
+    volumes:
+      - prom_data:/prometheus
+      - ./config:/etc/prometheus:z,ro
+    networks:
+      - hbnet
+    ports:
+      - '9090:9090'
+    command:
+      - '--config.file=/etc/prometheus/prometheus.yml'
+      - '--web.enable-remote-write-receiver'
+
+volumes:
+  prom_data:
+
+networks:
+  hbnet:
+    external: true

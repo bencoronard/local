@@ -1,0 +1,26 @@
+services:
+  sonarqube:
+    image: docker.io/library/sonarqube:community
+    restart: unless-stopped
+    volumes:
+      - sonarqube_data:/opt/sonarqube/data
+      - sonarqube_log:/opt/sonarqube/logs
+      - sonarqube_ext:/opt/sonarqube/extensions
+    networks:
+      - hbnet
+    ports:
+      - '9000:9000'
+    environment:
+      SONAR_JDBC_URL: jdbc:postgresql://postgres:5432/sonarqube
+      SONAR_JDBC_USERNAME: postgres
+      SONAR_JDBC_PASSWORD: P@ssw0rd
+      SONAR_ES_BOOTSTRAP_CHECKS_DISABLE: true
+
+volumes:
+  sonarqube_data:
+  sonarqube_log:
+  sonarqube_ext:
+
+networks:
+  hbnet:
+    external: true

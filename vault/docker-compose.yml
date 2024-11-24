@@ -1,0 +1,27 @@
+services:
+  vault:
+    image: docker.io/hashicorp/vault:latest
+    restart: unless-stopped
+    cap_add:
+      - IPC_LOCK
+    volumes:
+      - vault_log:/vault/logs
+      - vault_file:/vault/file
+      - vault_config:/vault/config.d
+      - ./config:/vault/config:z,ro
+    networks:
+      - hbnet
+    ports:
+      - '8200:8200'
+    environment:
+      VAULT_ADDR: 'http://localhost:8200'
+    command: ['server']
+
+volumes:
+  vault_file:
+  vault_log:
+  vault_config:
+
+networks:
+  hbnet:
+    external: true

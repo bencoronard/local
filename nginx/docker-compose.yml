@@ -1,0 +1,14 @@
+services:
+  nginx:
+    image: docker.io/library/nginx:alpine-otel
+    restart: unless-stopped
+    volumes:
+      - ./config:/etc/nginx:z,ro
+    networks:
+      - hbnet
+    ports:
+      - '8880:80'
+
+networks:
+  hbnet:
+    external: true

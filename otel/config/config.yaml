@@ -1,0 +1,63 @@
+receivers:
+  otlp:
+    protocols:
+      grpc:
+        endpoint: otel:4317
+      http:
+        endpoint: otel:4318
+  zipkin:
+    endpoint: otel:9411
+  prometheus:
+    config:
+      scrape_configs:
+        - job_name: otel-collector
+          scrape_interval: 10s
+          static_configs:
+            - targets: [localhost:8888]
+  
+
+processors:
+  memory_limiter:
+    check_interval: 1s
+    limit_mib: 512
+    spike_limit_mib: 128
+  probabilistic_sampler:
+    hash_seed: 22
+    sampling_percentage: 100
+  batch:
+    send_batch_size: 8192
+    send_batch_max_size: 0
+    timeout: 10s
+
+exporters:
+  debug:
+    verbosity: basic
+  prometheusremotewrite:
+    endpoint: http://prometheus:9090/api/v1/write
+  zipkin:
+    endpoint: http://zipkin:9411/api/v2/spans
+    format: proto
+
+service:
+  extensions: [health_check, pprof, zpages]
+  pipelines:
+    traces:
+      receivers: [zipkin]
+      processors: [memory_limiter, probabilistic_sampler, batch]
+      exporters: [zipkin]
+    metrics:
+      receivers: [otlp, prometheus]
+      processors: [memory_limiter, batch]
+      exporters: [prometheusremotewrite]
+    logs:
+      receivers: [otlp]
+      processors: [memory_limiter, batch]
+      exporters: [debug]
+
+extensions:
+  health_check:
+    endpoint: otel:13133
+  pprof:
+    endpoint: otel:1777
+  zpages:
+    endpoint: otel:55679

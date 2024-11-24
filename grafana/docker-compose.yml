@@ -1,0 +1,21 @@
+services:
+  grafana:
+    image: docker.io/grafana/grafana:main
+    restart: unless-stopped
+    volumes:
+      - grafana_storage:/var/lib/grafana
+      - ./config:/etc/grafana/provisioning/datasources:z,ro
+    networks:
+      - hbnet
+    ports:
+      - '3000:3000'
+    environment:
+      GF_SECURITY_ADMIN_USER: admin
+      GF_SECURITY_ADMIN_PASSWORD: P@ssw0rd
+
+volumes:
+  grafana_storage:
+
+networks:
+  hbnet:
+    external: true

@@ -1,0 +1,17 @@
+services:
+  tempo:
+    image: docker.io/grafana/tempo:latest
+    restart: unless-stopped
+    volumes:
+      - ./config:/etc/tempo:z,ro
+    networks:
+      - hbnet
+    ports:
+      - '3200:3200' # HTTP API
+      - '4317:4317' # OTLP gRPC receiver
+      - '4318:4318' # OTLP HTTP receiver
+    command: ['-config.file=/etc/tempo/tempo.yml']
+
+networks:
+  hbnet:
+    external: true

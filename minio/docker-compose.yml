@@ -1,0 +1,23 @@
+services:
+  minio:
+    image: docker.io/minio/minio:latest
+    restart: unless-stopped
+    volumes:
+      - minio_data:/data
+    networks:
+      - hbnet
+    ports:
+      - '9900:9000' # MinIO API
+      - '9901:9001' # MinIO UI
+    environment:
+      MINIO_ROOT_USER: admin
+      MINIO_ROOT_PASSWORD: P@ssw0rd
+      MINIO_BROWSER_REDIRECT_URL: http://localhost:9901
+    command: ['server', '/data', '--console-address', ':9001']
+
+volumes:
+  minio_data:
+
+networks:
+  hbnet:
+    external: true

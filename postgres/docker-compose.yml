@@ -1,0 +1,22 @@
+services:
+  postgres:
+    image: docker.io/library/postgres:alpine
+    restart: unless-stopped
+    shm_size: 256m
+    volumes:
+      - pg_data:/var/lib/postgresql
+      - ./init:/docker-entrypoint-initdb.d:z,ro
+    networks:
+      - hbnet
+    ports:
+      - '5432:5432'
+    environment:
+      POSTGRES_USER: postgres
+      POSTGRES_PASSWORD: P@ssw0rd
+
+volumes:
+  pg_data:
+
+networks:
+  hbnet:
+    external: true

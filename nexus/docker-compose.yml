@@ -1,0 +1,18 @@
+services:
+  nexus:
+    image: docker.io/sonatype/nexus3:3.84.1-java17-alpine
+    restart: unless-stopped
+    volumes:
+      - nexus_data:/nexus-data
+    networks:
+      - hbnet
+    ports:
+      - '8081:8081' # Nexus UI
+      - '8082:8082' # Docker repository connector
+
+volumes:
+  nexus_data:
+
+networks:
+  hbnet:
+    external: true

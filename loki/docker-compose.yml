@@ -1,0 +1,16 @@
+services:
+  loki:
+    image: docker.io/grafana/loki:latest
+    restart: unless-stopped
+    volumes:
+      - ./config:/etc/loki:z,ro
+    networks:
+      - hbnet
+    ports:
+      - '3100:3100'
+      - '9096:9096'
+    command: ['-config.file=/etc/loki/loki.yml']
+
+networks:
+  hbnet:
+    external: true

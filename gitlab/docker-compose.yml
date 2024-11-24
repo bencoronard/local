@@ -1,0 +1,50 @@
+services:
+  gitlab:
+    image: docker.io/gitlab/gitlab-ce:latest
+    restart: unless-stopped
+    shm_size: 256m
+    volumes:
+      - gitlab_data:/var/opt/gitlab
+      - gitlab_config:/etc/gitlab
+      - gitlab_log:/var/log/gitlab
+    networks:
+      - hbnet
+    ports:
+      - '9080:80' # GitLab UI
+      - '9022:22' # GitLab SSH
+    environment:
+      GITLAB_ROOT_EMAIL: admin@hireben.dev
+      GITLAB_ROOT_PASSWORD: P@ssw0rd
+      GITLAB_OMNIBUS_CONFIG: |
+        nginx['listen_port'] = 80
+        external_url 'http://localhost:9080'
+        gitlab_rails['gitlab_shell_ssh_port'] = 9022
+        postgresql['shared_buffers'] = '64MB'
+        redis['maxmemory'] = '32mb'
+        puma['worker_processes'] = 2
+        actioncable['worker_pool_size'] = 1
+        alertmanager['enable'] = false
+        sidekiq['enable'] = false
+        gitlab_rails['enable_mailer'] = false
+        gitlab_rails['enable_job_artifacts'] = false
+        gitlab_rails['incoming_email_enabled'] = false
+        gitlab_rails['backup_keep_time'] = 0
+        mattermost['enable'] = false
+        registry['enable'] = false
+        gitlab_ci['gitlab_runner'] = false
+        gitlab_exporter['enable'] = false
+        gitlab_kas['enable'] = false
+        letsencrypt['enable'] = false
+        node_exporter['enable'] = false
+        postgres_exporter['enable'] = false
+        prometheus['enable'] = false
+        redis_exporter['enable'] = false
+
+volumes:
+  gitlab_data:
+  gitlab_config:
+  gitlab_log:
+
+networks:
+  hbnet:
+    external: true
