@@ -1,6 +1,6 @@
 services:
   loki:
-    image: docker.io/grafana/loki
+    image: docker.io/grafana/loki:latest
     restart: unless-stopped
     volumes:
       - ./config/loki:/etc/loki:z,ro
