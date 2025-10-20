@@ -10,12 +10,13 @@ services:
     networks:
       - hbnet
     ports:
-      - '9080:9080' # GitLab UI
-      - '9022:9022' # GitLab SSH
+      - '9080:80' # GitLab UI
+      - '9022:22' # GitLab SSH
     environment:
       GITLAB_ROOT_EMAIL: admin@hireben.dev
       GITLAB_ROOT_PASSWORD: P@ssw0rd
       GITLAB_OMNIBUS_CONFIG: |
+        nginx['listen_port'] = 80
         external_url 'http://localhost:9080'
         gitlab_rails['gitlab_shell_ssh_port'] = 9022
         postgresql['shared_buffers'] = '64MB'
