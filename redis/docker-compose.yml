@@ -1,15 +1,16 @@
 services:
-  nginx:
-    image: docker.io/library/nginx:alpine-otel
+  redis:
+    image: docker.io/library/redis:alpine
     restart: unless-stopped
     security_opt:
       - label=type:container_runtime_t
     volumes:
-      - ./config/nginx:/etc/nginx:z,ro
+      - ./config:/usr/local/etc/redis:z
     networks:
       - hbnet
     ports:
-      - '8880:80'
+      - '6379:6379'
+    command: ['redis-server', '/usr/local/etc/redis/redis.conf']
 
 networks:
   hbnet:

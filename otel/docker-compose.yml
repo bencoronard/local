@@ -5,7 +5,7 @@ services:
     security_opt:
       - label=type:container_runtime_t
     volumes:
-      - ./config/otel:/etc/otelcol-contrib:z,ro
+      - ./config:/etc/otelcol-contrib:z,ro
     networks:
       - hbnet
     ports:

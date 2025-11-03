@@ -6,7 +6,7 @@ services:
       - label=type:container_runtime_t
     volumes:
       - mongo_data:/data/db
-      - ./config/mongo:/docker-entrypoint-initdb.d:z,ro
+      - ./init:/docker-entrypoint-initdb.d:z,ro
     networks:
       - hbnet
     ports:

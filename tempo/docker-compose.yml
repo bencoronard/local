@@ -3,7 +3,7 @@ services:
     image: docker.io/grafana/tempo:latest
     restart: unless-stopped
     volumes:
-      - ./config/tempo:/etc/tempo:z,ro
+      - ./config:/etc/tempo:z,ro
     networks:
       - hbnet
     ports:

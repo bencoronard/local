@@ -6,7 +6,7 @@ services:
       - label=type:container_runtime_t
     volumes:
       - prom_data:/prometheus
-      - ./config/prometheus:/etc/prometheus:z,ro
+      - ./config:/etc/prometheus:z,ro
       - ${XDG_RUNTIME_DIR}/podman/podman.sock:/var/run/docker.sock:z
     networks:
       - hbnet

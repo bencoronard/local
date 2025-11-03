@@ -4,7 +4,7 @@ services:
     restart: unless-stopped
     volumes:
       - grafana_storage:/var/lib/grafana
-      - ./config/grafana:/etc/grafana/provisioning/datasources:z,ro
+      - ./config:/etc/grafana/provisioning/datasources:z,ro
     networks:
       - hbnet
     ports:

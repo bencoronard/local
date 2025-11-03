@@ -7,7 +7,7 @@ services:
     shm_size: 256m
     volumes:
       - pg_data:/var/lib/postgresql
-      - ./config/postgres:/docker-entrypoint-initdb.d:z,ro
+      - ./init:/docker-entrypoint-initdb.d:z,ro
     networks:
       - hbnet
     ports:
