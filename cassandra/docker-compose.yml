@@ -1,0 +1,17 @@
+services:
+  cassandra:
+    image: docker.io/library/cassandra:latest
+    restart: unless-stopped
+    volumes:
+      - cassandra_data:/var/lib/cassandra
+    networks:
+      - hbnet
+    ports:
+      - '9042:9042'
+
+volumes:
+  cassandra_data:
+
+networks:
+  hbnet:
+    external: true
