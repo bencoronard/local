@@ -13,6 +13,5 @@ datasources:
   access: proxy
   orgId: 1
   basicAuth: false
-  isDefault: true
   version: 1
   editable: true
