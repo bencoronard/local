@@ -8,31 +8,13 @@ services:
       - vault_log:/vault/logs
       - vault_file:/vault/file
       - vault_config:/vault/config.d
+      - ./config:/vault/config:z,ro
     networks:
       - hbnet
     ports:
       - '8200:8200'
     environment:
       VAULT_ADDR: 'http://localhost:8200'
-      VAULT_LOCAL_CONFIG: |
-        {
-          "ui": true,
-          "listener": [
-            {
-              "tcp": {
-                "address": "0.0.0.0:8200",
-                "tls_disable": true
-              }
-            }
-          ],
-          "storage": {
-            "file": {
-              "path": "/vault/file"
-            }
-          },
-          "api_addr": "http://localhost:8200",
-          "disable_mlock": true
-        }
     command: server
 
 volumes:
