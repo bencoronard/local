@@ -13,7 +13,7 @@ services:
       MINIO_ROOT_USER: admin
       MINIO_ROOT_PASSWORD: P@ssw0rd
       MINIO_BROWSER_REDIRECT_URL: http://localhost:9901
-    command: 'server /data --console-address ":9001"'
+    command: ['server', '/data', '--console-address', ':9001']
 
 volumes:
   minio_data:
