@@ -12,8 +12,7 @@ services:
       - hbnet
     ports:
       - '9090:9090'
-    command:
-      - '--config.file=/etc/prometheus/prometheus.yml'
+    command: '--config.file=/etc/prometheus/prometheus.yml'
 
 volumes:
   prom_data:

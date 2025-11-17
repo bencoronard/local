@@ -9,8 +9,7 @@ services:
     ports:
       - '3100:3100'
       - '9096:9096'
-    command:
-      - '-config.file=/etc/loki/loki.yml'
+    command: '-config.file=/etc/loki/loki.yml'
 
 networks:
   hbnet:

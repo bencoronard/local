@@ -15,7 +15,7 @@ services:
       - '8200:8200'
     environment:
       VAULT_ADDR: 'http://localhost:8200'
-    command: server
+    command: 'server'
 
 volumes:
   vault_file:
