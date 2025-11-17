@@ -2,8 +2,6 @@ services:
   postgres:
     image: docker.io/library/postgres:alpine
     restart: unless-stopped
-    security_opt:
-      - label=type:container_runtime_t
     shm_size: 256m
     volumes:
       - pg_data:/var/lib/postgresql

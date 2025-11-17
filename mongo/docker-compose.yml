@@ -2,8 +2,6 @@ services:
   mongo:
     image: docker.io/library/mongo:noble
     restart: unless-stopped
-    security_opt:
-      - label=type:container_runtime_t
     volumes:
       - mongo_data:/data/db
       - ./init:/docker-entrypoint-initdb.d:z,ro

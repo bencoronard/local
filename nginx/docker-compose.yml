@@ -2,8 +2,6 @@ services:
   nginx:
     image: docker.io/library/nginx:alpine-otel
     restart: unless-stopped
-    security_opt:
-      - label=type:container_runtime_t
     volumes:
       - ./config:/etc/nginx:z,ro
     networks:
