@@ -37,9 +37,8 @@ processors:
 exporters:
   debug:
     verbosity: basic
-  prometheus:
-    endpoint: otel:8889
-    namespace: default
+  prometheusremotewrite:
+    endpoint: http://prometheus:9090/api/v1/write
 
 service:
   extensions: [health_check, pprof, zpages]
@@ -51,7 +50,7 @@ service:
     metrics:
       receivers: [otlp, prometheus]
       processors: [memory_limiter, batch]
-      exporters: [debug, prometheus]
+      exporters: [prometheusremotewrite]
     logs:
       receivers: [otlp]
       processors: [memory_limiter, batch]
