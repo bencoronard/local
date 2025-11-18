@@ -23,7 +23,7 @@ processors:
     spike_limit_mib: 128
   probabilistic_sampler:
     hash_seed: 22
-    sampling_percentage: 75
+    sampling_percentage: 100
   batch:
     send_batch_size: 8192
     send_batch_max_size: 0
